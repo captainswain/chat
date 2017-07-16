@@ -2,23 +2,27 @@
 
 namespace App\Models\Chat;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model {
-	//
-	protected $fillable = [
-		'body',
-	];
+class Message extends Model
+{
+    //
+    protected $fillable = [
+        'body',
+    ];
 
-	protected $appends = [
-		'selfOwned',
-	];
+    protected $appends = [
+        'selfOwned',
+    ];
 
-	public function getSelfOwnedAttribute() {
-		return $this->user_id == auth()->user()->id;
-	}
+    public function getSelfOwnedAttribute()
+    {
+        return auth()->user()->id == $this->user_id;
+    }
 
-	public function user() {
-		return $this->belongsTo(User::class);
-	}
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
